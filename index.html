@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omen PDF - Offline PDF Suite</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Offline Local Vendor Libraries -->
+  <script src="vendor/pdf-lib.min.js"></script>
+  <script src="vendor/pdf.min.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+</head>
+
+<body>
+  <div class="mac-window">
+    <!-- macOS Window Titlebar -->
+    <header class="window-titlebar">
+      <div class="window-traffic-lights">
+        <span class="traffic-light red" title="Close"></span>
+        <span class="traffic-light yellow" title="Minimize"></span>
+        <span class="traffic-light green" title="Maximize"></span>
+      </div>
+
+      <div class="window-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-blue)">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <span>Omen PDF</span>
+        <span class="app-chip">Studio</span>
+      </div>
+
+      <div class="window-actions">
+        <!-- Theme Accent Switcher -->
+        <div class="accent-switcher" title="Change Theme Accent Color">
+          <span class="accent-dot active" data-color="#0a84ff" style="background:#0a84ff;"></span>
+          <span class="accent-dot" data-color="#bf5af2" style="background:#bf5af2;"></span>
+          <span class="accent-dot" data-color="#30d158" style="background:#30d158;"></span>
+          <span class="accent-dot" data-color="#ff9f0a" style="background:#ff9f0a;"></span>
+        </div>
+
+        <div class="badge-offline">
+          <span class="badge-dot"></span>
+          <span>100% Offline & Private</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Container: Sidebar + Workspace -->
+    <div class="app-container">
+      <!-- Sidebar Navigation -->
+      <aside class="app-sidebar">
+        <div class="sidebar-section-title">Core PDF Tools</div>
+        <nav class="nav-group">
+          <div class="nav-item active" data-view="compress">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 14 10 14 10 20"></polyline>
+                <polyline points="20 10 14 10 14 4"></polyline>
+                <line x1="14" y1="10" x2="21" y2="3"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </span>
+            <span>Compress PDF</span>
+          </div>
+
+          <div class="nav-item" data-view="merge">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="14" height="14" rx="2" ry="2"></rect>
+                <path d="M8 21h12a2 2 0 0 0 2-2V9"></path>
+              </svg>
+            </span>
+            <span>Merge PDFs</span>
+          </div>
+
+          <div class="nav-item" data-view="split">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 3h5v5"></path>
+                <path d="M8 21H3v-5"></path>
+                <path d="M21 3l-7.5 7.5"></path>
+                <path d="M3 21l7.5-7.5"></path>
+              </svg>
+            </span>
+            <span>Split PDF</span>
+          </div>
+
+          <div class="nav-item" data-view="organize">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+            </span>
+            <span>Rotate & Organize</span>
+          </div>
+        </nav>
+
+        <div class="sidebar-section-title" style="margin-top: 10px;">Conversion & Security</div>
+        <nav class="nav-group">
+          <div class="nav-item" data-view="img2pdf">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </span>
+            <span>Images to PDF</span>
+          </div>
+
+          <div class="nav-item" data-view="pdf2img">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <circle cx="10" cy="13" r="2"></circle>
+                <path d="m20 17-1.5-1.5L14 20"></path>
+              </svg>
+            </span>
+            <span>PDF to Images</span>
+          </div>
+
+          <div class="nav-item" data-view="watermark">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </span>
+            <span>Watermark & Numbers</span>
+          </div>
+
+          <div class="nav-item" data-view="extract">
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </span>
+            <span>Extract Text & Meta</span>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="device-info-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <span>Created by Shubham Chudasma</span>
+          </div>
+          <div class="device-info-sub">
+            100% Offline & Private • Zero Cloud Uploads
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Workspace Views -->
+      <main class="app-main">
+
+        <!-- ==================== VIEW 1: COMPRESS ==================== -->
+        <section id="view-compress" class="view-section">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>PDF Compressor</h1>
+              <p>Significantly reduce PDF file size while preserving high visual clarity. 100% local offline processing.</p>
+            </div>
+          </div>
+
+          <!-- Dropzone -->
+          <div id="compress-dropzone" class="dropzone">
+            <div class="dropzone-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 14 10 14 10 20"></polyline>
+                <polyline points="20 10 14 10 14 4"></polyline>
+                <line x1="14" y1="10" x2="21" y2="3"></line>
+                <line x1="3" y1="21" x2="10" y2="14"></line>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop your PDF file here</div>
+            <div class="dropzone-hint">Or click to browse from Finder (Shortcut: Cmd+O)</div>
+            <button class="dropzone-btn" type="button">Select PDF</button>
+            <input type="file" id="compress-file-input" accept="application/pdf" style="display: none;">
+          </div>
+
+          <!-- Workspace (shown after file is selected) -->
+          <div id="compress-workspace" style="display: none;">
+            <div class="tool-card">
+              <div class="tool-card-header">
+                <div class="tool-card-title">
+                  <img id="compress-file-thumb" class="file-thumb" src="" alt="Thumbnail">
+                  <div>
+                    <div id="compress-file-name" style="font-size:14px; font-weight:600; color:var(--text-primary);">
+                      Document.pdf</div>
+                    <div id="compress-file-meta" style="font-size:12px; color:var(--text-muted);">0 Pages • 0 MB</div>
+                  </div>
+                </div>
+                <button id="compress-reset-btn" class="btn btn-secondary">Choose Different File</button>
+              </div>
+
+                <!-- Mode Switcher (11zon Target Size vs Slider vs Presets) -->
+                <div class="segmented-control">
+                  <button type="button" class="segment-btn active" data-mode="target">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="6"></circle>
+                      <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                    <span>Target Exact Size (500 KB Tenant Portal)</span>
+                  </button>
+                  <button type="button" class="segment-btn" data-mode="slider">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="4" y1="21" x2="4" y2="14"></line>
+                      <line x1="4" y1="10" x2="4" y2="3"></line>
+                      <line x1="12" y1="21" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12" y2="3"></line>
+                      <line x1="20" y1="21" x2="20" y2="16"></line>
+                      <line x1="20" y1="12" x2="20" y2="3"></line>
+                      <line x1="1" y1="14" x2="7" y2="14"></line>
+                      <line x1="9" y1="8" x2="15" y2="8"></line>
+                      <line x1="17" y1="16" x2="23" y2="16"></line>
+                    </svg>
+                    <span>11zon Compression Slider Bar</span>
+                  </button>
+                  <button type="button" class="segment-btn" data-mode="presets">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                    </svg>
+                    <span>Standard Presets</span>
+                  </button>
+                </div>
+
+                <!-- MODE 1: Target Exact Size (Default for Tenant Registration) -->
+                <div id="compress-mode-target" class="target-size-container">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <div style="font-size:14px; font-weight:700; color:#fff;">Target Maximum File Size</div>
+                      <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">
+                        Output PDF will be compressed to stay strictly under this limit with minimal quality loss.
+                      </div>
+                    </div>
+                    <div class="target-input-box">
+                      <input type="number" id="compress-target-kb" value="500" min="50" max="50000" step="50">
+                      <span>KB</span>
+                    </div>
+                  </div>
+
+                  <div class="target-input-row">
+                    <span style="font-size:12px; font-weight:600; color:var(--text-secondary);">Quick Presets:</span>
+                    <div class="size-pills-wrap">
+                      <button type="button" class="size-pill" data-kb="100">100 KB</button>
+                      <button type="button" class="size-pill" data-kb="200">200 KB</button>
+                      <button type="button" class="size-pill" data-kb="300">300 KB</button>
+                      <button type="button" class="size-pill highlight active" data-kb="500">★ 500 KB (Tenant
+                        Registration)</button>
+                      <button type="button" class="size-pill" data-kb="1000">1 MB</button>
+                      <button type="button" class="size-pill" data-kb="2000">2 MB</button>
+                    </div>
+                  </div>
+
+                  <div
+                    style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border-subtle); padding-top:12px;">
+                    <label
+                      style="display:flex; align-items:center; gap:8px; font-size:12px; color:var(--text-secondary); cursor:pointer;">
+                      <input type="checkbox" id="compress-high-contrast" checked
+                        style="accent-color:var(--accent-blue)">
+                      <span>High-Contrast Text Protection (Enhances rental contract & agreement clarity)</span>
+                    </label>
+                    <div style="font-size:11px; color:var(--accent-green); font-weight:600;">
+                      ✓ Guaranteed ≤ <span id="target-kb-display">500</span> KB
+                    </div>
+                  </div>
+                </div>
+
+                <!-- MODE 2: 11zon Compression Slider Bar -->
+                <div id="compress-mode-slider" class="zon-slider-container" style="display:none;">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <div style="font-size:15px; font-weight:700; color:#fff;">11zon Compression Slider Bar</div>
+                      <div style="font-size:12px; color:var(--text-muted); margin-top:3px;">
+                        Interactive spectrum slider — choose between Maximum Visual Quality or Smallest File Size.
+                      </div>
+                    </div>
+                    <div class="slider-val-badge">
+                      <span style="font-size:11px; text-transform:uppercase; color:var(--accent-blue);">Compression:</span>
+                      <span id="slider-level-val" style="color:#fff; font-size:15px;">65%</span>
+                    </div>
+                  </div>
+
+                  <!-- High-Contrast Colorful Spectrum Bar -->
+                  <input type="range" id="compress-zon-slider" class="zon-range" min="10" max="95" value="65">
+
+                  <!-- Quick Snap Notch Pills -->
+                  <div class="slider-quick-notches">
+                    <button type="button" class="notch-btn" data-level="20">20% (Ultra Quality)</button>
+                    <button type="button" class="notch-btn" data-level="40">40% (High Quality)</button>
+                    <button type="button" class="notch-btn active" data-level="65">★ 65% (Recommended)</button>
+                    <button type="button" class="notch-btn" data-level="80">80% (Small Size)</button>
+                    <button type="button" class="notch-btn" data-level="90">90% (Max Small)</button>
+                  </div>
+
+                  <div class="slider-labels-row">
+                    <span style="color:var(--accent-green);">🟢 Best Quality (Larger Size)</span>
+                    <span id="slider-est-size" style="color:var(--accent-blue); font-weight:700; background:rgba(10,132,255,0.12); padding:3px 12px; border-radius:12px; border:1px solid rgba(10,132,255,0.3);">Estimated Output: ~5.56 MB</span>
+                    <span style="color:var(--accent-orange);">🟠 Smallest Size (High Compression)</span>
+                  </div>
+                </div>
+
+                <!-- MODE 3: Standard Presets -->
+                <div id="compress-mode-presets" class="preset-grid" style="display:none;">
+                  <div class="preset-card active" data-preset="balanced">
+                    <div class="preset-card-title">
+                      <span>Balanced</span>
+                      <span class="preset-badge">Recommended</span>
+                    </div>
+                    <p class="preset-desc">Optimal 144 DPI with 70% quality JPEG compression. Ideal for standard docs &
+                      sharing.</p>
+                  </div>
+
+                  <div class="preset-card" data-preset="extreme">
+                    <div class="preset-card-title">
+                      <span>Extreme</span>
+                      <span class="preset-badge" style="background:var(--accent-orange)">Max Small</span>
+                    </div>
+                    <p class="preset-desc">96 DPI with 45% quality. Maximum possible file size reduction for strict
+                      upload limits.</p>
+                  </div>
+
+                  <div class="preset-card" data-preset="lossless">
+                    <div class="preset-card-title">
+                      <span>Lossless</span>
+                      <span class="preset-badge" style="background:var(--accent-green)">Crisp</span>
+                    </div>
+                    <p class="preset-desc">Cleans redundant objects, streams, metadata & fonts. Zero image degradation.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Action Bar -->
+                <div style="display: flex; gap: 12px; align-items: center; justify-content: flex-end;">
+                    <button id="compress-start-btn" class="btn btn-primary"
+                      style="padding: 11px 32px; font-size: 14px;">
+                      Compress PDF to Target Size Now
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="compress-progress-container" style="display: none; margin-top: 20px;">
+                  <div class="progress-bar-wrap">
+                    <div id="compress-progress-bar" class="progress-bar-fill"></div>
+                  </div>
+                  <div id="compress-progress-text" class="progress-status" style="margin-top: 6px;">Processing...</div>
+                </div>
+
+                      <!-- Size Review & Verification Card (Shows Before/After Size + Prominent Download Button) -->
+                      <div id="compress-review-card" class="size-review-card" style="display: none;">
+                        <div class="size-review-header">
+                          <div class="size-review-title">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)"
+                              stroke-width="2.5">
+                              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>File Size Review & Verification</span>
+                          </div>
+                            <div id="review-status-badge" class="review-status-pill">
+                              <span>✓ Ready for Tenant Registration</span>
+                            </div>
+                            </div>
+
+                            <div class="size-metrics-grid">
+                              <div class="size-metric-card">
+                                <span class="size-metric-lbl">Original File</span>
+                                <span id="review-orig-size" class="size-metric-val">0 MB</span>
+                              </div>
+
+                              <div class="size-metric-card">
+                                <span class="size-metric-lbl">Target Requested</span>
+                                <span id="review-target-size" class="size-metric-val"
+                                  style="color:var(--accent-blue);">500 KB</span>
+                              </div>
+
+                              <div class="size-metric-card"
+                                style="border-color: rgba(48, 209, 88, 0.4); background: rgba(48, 209, 88, 0.08);">
+                                <span class="size-metric-lbl">Final Compressed Size</span>
+                                <span id="review-final-size" class="size-metric-val"
+                                  style="color:var(--accent-green);">0 KB</span>
+                              </div>
+
+                              <div class="size-metric-card">
+                                <span class="size-metric-lbl">Total Space Saved</span>
+                                <span id="review-saved-pct" class="size-metric-val"
+                                  style="color:var(--accent-green);">-0%</span>
+                              </div>
+                            </div>
+
+                            <div class="review-actions-row">
+                              <div style="display:flex; align-items:center; gap:10px;">
+                                <button id="compress-preview-btn" class="btn btn-secondary">
+                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                  </svg>
+                                  <span>Preview PDF</span>
+                                </button>
+                                <button id="compress-readjust-btn" class="btn btn-secondary" style="font-size:12px;">
+                                  <span>↺ Re-adjust Size / Slider</span>
+                                </button>
+                              </div>
+
+                              <!-- Prominent Download Button After Size Review -->
+                              <button id="compress-download-btn" class="btn btn-primary"
+                                style="background:var(--accent-green); color:#061408; font-weight:700; padding:12px 28px; font-size:14px; box-shadow: 0 4px 18px rgba(48, 209, 88, 0.4);">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                  stroke-width="2.5">
+                                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                  <polyline points="7 10 12 15 17 10"></polyline>
+                                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                <span id="compress-download-label">Download Compressed PDF</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+        </section>
+
+        <!-- ==================== VIEW 2: MERGE ==================== -->
+        <section id="view-merge" class="view-section" style="display: none;">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>Merge PDFs</h1>
+              <p>Combine multiple PDF files into one clean document. Reorder pages freely.</p>
+            </div>
+            <div class="view-actions">
+              <button id="merge-clear-btn" class="btn btn-secondary">Clear Queue</button>
+            </div>
+          </div>
+
+          <div id="merge-dropzone" class="dropzone" style="padding: 30px 20px; margin-bottom: 20px;">
+            <div class="dropzone-icon" style="width:48px; height:48px; border-radius:12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop PDF files here to merge</div>
+            <div class="dropzone-hint">Add as many files as you like • Reorder anytime</div>
+            <button class="dropzone-btn" type="button">Add PDF Files</button>
+            <input type="file" id="merge-file-input" accept="application/pdf" multiple style="display: none;">
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>Queue Order</span>
+                <span id="merge-count-badge" class="app-chip"
+                  style="background:var(--bg-elevated); border:1px solid var(--border-medium);">0 Files</span>
+              </div>
+            </div>
+
+            <!-- Draggable / Reorderable File List -->
+            <div id="merge-file-list" class="file-list">
+              <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:13px;">No PDFs queued for
+                merging yet. Drop some above!</div>
+            </div>
+
+            <div
+              style="display: flex; gap: 14px; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+              <div class="form-group" style="flex: 1; max-width: 320px;">
+                <label class="form-label">Output Filename</label>
+                <input type="text" id="merge-output-name" class="form-input" value="Merged_Document.pdf"
+                  placeholder="Merged_Document.pdf">
+              </div>
+              <button id="merge-run-btn" class="btn btn-primary" disabled style="padding: 10px 24px;">
+                Merge All PDFs
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 3: SPLIT ==================== -->
+        <section id="view-split" class="view-section" style="display: none;">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>Split PDF</h1>
+              <p>Extract specific pages, page ranges, or split into individual single-page documents.</p>
+            </div>
+          </div>
+
+          <div id="split-dropzone" class="dropzone">
+            <div class="dropzone-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 3h5v5"></path>
+                <path d="M8 21H3v-5"></path>
+                <path d="M21 3l-7.5 7.5"></path>
+                <path d="M3 21l7.5-7.5"></path>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop PDF to split</div>
+            <div class="dropzone-hint">Visual thumbnail selector with single and batch export</div>
+            <button class="dropzone-btn" type="button">Select PDF</button>
+            <input type="file" id="split-file-input" accept="application/pdf" style="display: none;">
+          </div>
+
+          <div id="split-workspace" style="display: none;">
+            <div class="tool-card">
+              <div class="tool-card-header">
+                <div class="tool-card-title">
+                  <div>
+                    <div id="split-file-name" style="font-size:14px; font-weight:600; color:var(--text-primary);">
+                      Document.pdf</div>
+                    <div id="split-file-meta" style="font-size:12px; color:var(--text-muted);">0 Pages</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button id="split-select-all" class="btn btn-secondary"
+                    style="font-size:11px; padding:6px 12px;">Select All</button>
+                  <button id="split-deselect-all" class="btn btn-secondary"
+                    style="font-size:11px; padding:6px 12px;">Deselect All</button>
+                </div>
+              </div>
+
+              <!-- Split Mode Radio Options -->
+              <div style="display: flex; gap: 20px; margin-bottom: 14px; flex-wrap: wrap;">
+                <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="split-mode" value="selected" checked
+                    style="accent-color:var(--accent-blue)">
+                  <span>Extract Selected Pages (into 1 PDF)</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="split-mode" value="all-zip" style="accent-color:var(--accent-blue)">
+                  <span>Extract All Pages (Individual PDFs in ZIP)</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="split-mode" value="interval" style="accent-color:var(--accent-blue)">
+                  <span>Split by Page Interval</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer;">
+                  <input type="radio" name="split-mode" value="range" style="accent-color:var(--accent-blue)">
+                  <span>Custom Range (e.g. 1-3, 5)</span>
+                </label>
+              </div>
+
+              <div id="split-interval-wrap" style="display:none; margin-bottom:14px;">
+                <label class="form-label">Split every N pages</label>
+                <input type="number" id="split-interval-input" class="form-input" value="2" min="1" max="100"
+                  style="max-width:120px;">
+              </div>
+
+              <div id="split-range-wrap" style="display:none; margin-bottom:14px;">
+                <label class="form-label">Page Ranges</label>
+                <input type="text" id="split-range-input" class="form-input" placeholder="e.g. 1-3, 5, 8-10"
+                  style="max-width:300px;">
+              </div>
+
+              <!-- Page Grid Thumbnails -->
+              <div id="split-page-grid" class="page-grid"></div>
+
+              <div
+                style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border-subtle); padding-top:14px;">
+                <div id="split-selected-count" style="font-size:12px; color:var(--text-secondary);">0 Pages Selected
+                </div>
+                <button id="split-run-btn" class="btn btn-primary">Process & Download</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 4: ORGANIZE & ROTATE ==================== -->
+        <section id="view-organize" class="view-section" style="display: none;">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>Rotate & Organize Pages</h1>
+              <p>Fix sideways pages, rotate 90° / 180° / 270°, delete unwanted pages, and re-export.</p>
+            </div>
+            <div class="view-actions">
+              <button id="organize-rotate-cw-all" class="btn btn-secondary">Rotate All 90° ⟳</button>
+              <button id="organize-rotate-ccw-all" class="btn btn-secondary">Rotate All 90° ⟲</button>
+              <button id="organize-reset-all" class="btn btn-secondary">Reset</button>
+            </div>
+          </div>
+
+          <div id="organize-dropzone" class="dropzone">
+            <div class="dropzone-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop PDF to rotate & reorder</div>
+            <div class="dropzone-hint">Live preview rotation with zero quality loss</div>
+            <button class="dropzone-btn" type="button">Select PDF</button>
+            <input type="file" id="organize-file-input" accept="application/pdf" style="display: none;">
+          </div>
+
+          <div id="organize-workspace" style="display: none;">
+            <div class="tool-card">
+              <div class="tool-card-header">
+                <div>
+                  <div id="organize-file-name" style="font-size:14px; font-weight:600; color:var(--text-primary);">
+                    Document.pdf</div>
+                  <div id="organize-file-meta" style="font-size:12px; color:var(--text-muted);">0 Pages</div>
+                </div>
+                <button id="organize-save-btn" class="btn btn-primary">Save Organized PDF</button>
+              </div>
+
+              <!-- Page Grid -->
+              <div id="organize-page-grid" class="page-grid"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 5: IMAGES TO PDF ==================== -->
+        <section id="view-img2pdf" class="view-section" style="display: none;">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>Images to PDF</h1>
+              <p>Convert JPG, PNG, and WebP images into a single professional PDF document.</p>
+            </div>
+            <div class="view-actions">
+              <button id="img2pdf-clear-btn" class="btn btn-secondary">Clear Images</button>
+            </div>
+          </div>
+
+          <div id="img2pdf-dropzone" class="dropzone" style="padding: 30px 20px; margin-bottom: 20px;">
+            <div class="dropzone-icon" style="width:48px; height:48px; border-radius:12px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop images here (JPG, PNG, WebP)</div>
+            <div class="dropzone-hint">Select multiple photos or scans</div>
+            <button class="dropzone-btn" type="button">Add Images</button>
+            <input type="file" id="img2pdf-file-input" accept="image/*" multiple style="display: none;">
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-card-header">
+              <div class="tool-card-title">
+                <span>Selected Images</span>
+                <span id="img2pdf-count-badge" class="app-chip"
+                  style="background:var(--bg-elevated); border:1px solid var(--border-medium);">0 Images</span>
+              </div>
+            </div>
+
+            <!-- List -->
+            <div id="img2pdf-file-list" class="file-list">
+              <div style="text-align:center; padding:32px; color:var(--text-muted); font-size:13px;">No images added
+                yet. Drop some above!</div>
+            </div>
+
+            <!-- Page Size & Margin Controls -->
+            <div class="control-grid" style="border-top:1px solid var(--border-subtle); padding-top:16px;">
+              <div class="form-group">
+                <label class="form-label">Page Layout</label>
+                <select id="img2pdf-page-size" class="form-select">
+                  <option value="fit">Fit to Image (Preserve original image resolution)</option>
+                  <option value="a4">Standard A4 Sheet</option>
+                  <option value="letter">US Letter Sheet</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Margin</label>
+                <select id="img2pdf-margin" class="form-select">
+                  <option value="0">No Margins (Full Bleed)</option>
+                  <option value="20" selected>Small Margin (20 pt)</option>
+                  <option value="40">Standard Margin (40 pt)</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end;">
+              <button id="img2pdf-run-btn" class="btn btn-primary" disabled style="padding:10px 24px;">
+                Convert Images to PDF
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 6: PDF TO IMAGES ==================== -->
+        <section id="view-pdf2img" class="view-section" style="display: none;">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>PDF to Images</h1>
+              <p>Render every page of your PDF into high-resolution PNG or JPG images packaged in a ZIP.</p>
+            </div>
+          </div>
+
+          <div id="pdf2img-dropzone" class="dropzone">
+            <div class="dropzone-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <circle cx="10" cy="13" r="2"></circle>
+                <path d="m20 17-1.5-1.5L14 20"></path>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop PDF to extract images</div>
+            <div class="dropzone-hint">Sharp Apple Retina 2x & 3x rendering</div>
+            <button class="dropzone-btn" type="button">Select PDF</button>
+            <input type="file" id="pdf2img-file-input" accept="application/pdf" style="display: none;">
+          </div>
+
+          <div id="pdf2img-workspace" style="display: none;">
+            <div class="tool-card">
+              <div class="tool-card-header">
+                <div class="tool-card-title">
+                  <img id="pdf2img-thumb" class="file-thumb" src="" alt="Thumbnail">
+                  <div>
+                    <div id="pdf2img-file-name" style="font-size:14px; font-weight:600; color:var(--text-primary);">
+                      Document.pdf</div>
+                    <div id="pdf2img-file-meta" style="font-size:12px; color:var(--text-muted);">0 Pages</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-grid">
+                <div class="form-group">
+                  <label class="form-label">Export Format</label>
+                  <select id="pdf2img-format" class="form-select">
+                    <option value="image/png">PNG (Lossless & Crisp)</option>
+                    <option value="image/jpeg">JPEG (Compact File Size)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Resolution / Quality</label>
+                  <select id="pdf2img-scale" class="form-select">
+                    <option value="1.0">Standard 1x (72 DPI)</option>
+                    <option value="2.0" selected>Apple Retina 2x (144 DPI - Recommended)</option>
+                    <option value="3.0">Ultra High-Res 3x (300 DPI - Print Quality)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end;">
+                <button id="pdf2img-run-btn" class="btn btn-primary">
+                  Export All Pages as ZIP
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 7: WATERMARK & NUMBERS ==================== -->
+        <section id="view-watermark" class="view-section" style="display: none;">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>Watermark & Page Numbers</h1>
+              <p>Add security stamps (e.g. Confidential, Draft) and automatic page numbers.</p>
+            </div>
+          </div>
+
+          <div id="watermark-dropzone" class="dropzone">
+            <div class="dropzone-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop PDF to watermark or number</div>
+            <button class="dropzone-btn" type="button">Select PDF</button>
+            <input type="file" id="watermark-file-input" accept="application/pdf" style="display: none;">
+          </div>
+
+          <div id="watermark-workspace" style="display: none;">
+            <div class="tool-card">
+              <div class="tool-card-header">
+                <div class="tool-card-title">
+                  <img id="watermark-thumb" class="file-thumb" src="" alt="Thumbnail">
+                  <div>
+                    <div id="watermark-file-name" style="font-size:14px; font-weight:600; color:var(--text-primary);">
+                      Document.pdf</div>
+                    <div id="watermark-file-meta" style="font-size:12px; color:var(--text-muted);">0 Pages</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-grid">
+                <div class="form-group">
+                  <label class="form-label">Watermark Text</label>
+                  <input type="text" id="watermark-text" class="form-input" value="CONFIDENTIAL"
+                    placeholder="e.g. CONFIDENTIAL, DRAFT, COPY">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Font Size</label>
+                  <input type="number" id="watermark-size" class="form-input" value="52" min="12" max="120">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Opacity (0.1 - 1.0)</label>
+                  <input type="number" id="watermark-opacity" class="form-input" value="0.25" min="0.05" max="1.0"
+                    step="0.05">
+                </div>
+
+                <div class="form-group" style="justify-content: flex-end;">
+                  <label
+                    style="display:flex; align-items:center; gap:8px; font-size:13px; cursor:pointer; padding-top:20px;">
+                    <input type="checkbox" id="watermark-page-num-check" checked
+                      style="accent-color:var(--accent-blue)">
+                    <span>Add bottom page numbers (Page X of Y)</span>
+                  </label>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:flex-end;">
+                <button id="watermark-run-btn" class="btn btn-primary">
+                  Apply & Download PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== VIEW 8: EXTRACT TEXT & METADATA ==================== -->
+        <section id="view-extract" class="view-section" style="display: none;">
+          <div class="view-header">
+            <div class="view-title-wrap">
+              <h1>Extract Text & Metadata</h1>
+              <p>Inspect document information, creation history, and extract clean text for copying or export.</p>
+            </div>
+          </div>
+
+          <div id="extract-dropzone" class="dropzone">
+            <div class="dropzone-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <div class="dropzone-title">Drop PDF to inspect & extract</div>
+            <div class="dropzone-hint">Instant client-side text parsing • Zero data leaves device</div>
+            <button class="dropzone-btn" type="button">Select PDF</button>
+            <input type="file" id="extract-file-input" accept="application/pdf" style="display: none;">
+          </div>
+
+          <div id="extract-workspace" style="display: none;">
+            <div class="tool-card">
+              <div class="tool-card-header">
+                <div class="tool-card-title">
+                  <img id="extract-thumb" class="file-thumb" src="" alt="Thumbnail">
+                  <div>
+                    <div id="extract-file-name" style="font-size:14px; font-weight:600; color:var(--text-primary);">Document.pdf</div>
+                    <div id="extract-file-meta" style="font-size:12px; color:var(--text-muted);">0 Pages</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:10px;">
+                  <button id="extract-copy-btn" class="btn btn-secondary">📋 Copy All Text</button>
+                  <button id="extract-download-txt-btn" class="btn btn-primary">⬇ Download .TXT</button>
+                </div>
+              </div>
+
+              <!-- Metadata Info Grid -->
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:18px;">
+                <div class="size-metric-card">
+                  <span class="size-metric-lbl">Document Title</span>
+                  <span id="meta-title" style="font-size:13px; font-weight:600; color:#fff; word-break:break-all;">Untitled</span>
+                </div>
+                <div class="size-metric-card">
+                  <span class="size-metric-lbl">Author / Creator</span>
+                  <span id="meta-author" style="font-size:13px; font-weight:600; color:#fff;">Unknown</span>
+                </div>
+                <div class="size-metric-card">
+                  <span class="size-metric-lbl">Page Count</span>
+                  <span id="meta-pages" style="font-size:14px; font-weight:700; color:var(--accent-blue);">0</span>
+                </div>
+                <div class="size-metric-card">
+                  <span class="size-metric-lbl">File Size</span>
+                  <span id="meta-size" style="font-size:14px; font-weight:700; color:var(--accent-green);">0 MB</span>
+                </div>
+              </div>
+
+              <!-- Text Content Box -->
+              <div class="form-group">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                  <label class="form-label" style="margin:0;">Extracted Plain Text</label>
+                  <span id="extract-word-count" style="font-size:11px; color:var(--text-muted);">0 Words</span>
+                </div>
+                <textarea id="extract-text-area" class="form-input" style="height:320px; font-family:var(--font-mono); font-size:12px; line-height:1.6; resize:vertical;" placeholder="Extracted text will appear here..."></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bottom Footer Credit -->
+        <footer style="margin-top:auto; padding-top:28px; padding-bottom:12px; text-align:center; font-size:12px; color:var(--text-muted); border-top:1px solid var(--border-subtle);">
+          <span>Omen PDF • Created by Shubham Chudasma • 100% Offline & Private</span>
+        </footer>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Native macOS In-App PDF Preview Modal -->
+  <div id="pdf-preview-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          <span>Visual Quality Inspection</span>
+          <span id="modal-page-num" class="app-chip">Page 1</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button id="modal-prev-page" class="btn btn-secondary btn-icon-only" title="Previous Page">◀</button>
+          <button id="modal-next-page" class="btn btn-secondary btn-icon-only" title="Next Page">▶</button>
+          <span style="width:1px; height:20px; background:var(--border-subtle); margin:0 4px;"></span>
+          <button id="modal-zoom-out" class="btn btn-secondary btn-icon-only" title="Zoom Out">−</button>
+          <span id="modal-zoom-label" style="font-size:11px; font-weight:600; color:var(--text-muted); width:40px; text-align:center;">100%</span>
+          <button id="modal-zoom-in" class="btn btn-secondary btn-icon-only" title="Zoom In">+</button>
+          <span style="width:1px; height:20px; background:var(--border-subtle); margin:0 4px;"></span>
+          <button id="modal-close-btn" class="btn btn-secondary" style="font-size:12px; padding:6px 14px;">✕ Close</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div id="modal-canvas-wrap" style="display:flex; justify-content:center; align-items:flex-start; min-height:400px; padding:20px; overflow:auto;">
+          <!-- Canvas injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App Core Script -->
+  <script src="app.js"></script>
+</body>
+
+</html>
